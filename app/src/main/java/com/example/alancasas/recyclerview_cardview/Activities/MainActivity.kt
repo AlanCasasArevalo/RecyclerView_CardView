@@ -2,8 +2,11 @@ package com.example.alancasas.recyclerview_cardview.Activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import com.example.alancasas.recyclerview_cardview.Adapters.MyAdapter
 import com.example.alancasas.recyclerview_cardview.Interfaces.CustomOnItemClickListener
@@ -33,6 +36,29 @@ class MainActivity : AppCompatActivity() {
                 deleteElement(position)
             }
         })
+
+        recyclerView.setHasFixedSize(true)
+
+        recyclerView.itemAnimator = DefaultItemAnimator()
+
+        recyclerView.layoutManager = layoutManager
+
+        recyclerView.adapter = adapter
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.add_name){
+            addNewElement(0)
+            return true
+        }else{
+            return super.onOptionsItemSelected(item)
+        }
     }
 
     fun getAllNames () : ArrayList<String>{
@@ -56,4 +82,6 @@ class MainActivity : AppCompatActivity() {
     fun deleteElement (position : Int) {
         names.removeAt(position)
         adapter.notifyItemRemoved(position)
-    }}
+    }
+
+}
