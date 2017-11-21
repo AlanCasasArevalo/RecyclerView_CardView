@@ -33,8 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = MyAdapter(movies, R.layout.recycler_view_item, object : CustomOnItemClickListener{
             override fun onCustomItemClickListener(movie: Movie, position: Int) {
-
-                //                deleteElement(position)
+                deleteElement(position)
             }
         })
 
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.add_name){
-//            addNewElement(0)
+            addNewElement(0)
             return true
         }else{
             return super.onOptionsItemSelected(item)
@@ -73,16 +72,16 @@ class MainActivity : AppCompatActivity() {
         )
 
     }
-//
-//    fun addNewElement ( position: Int ){
-//        movies.add(position, "New name ${++counter} ")
-//        adapter.notifyItemInserted(position)
-//        layoutManager.scrollToPosition(position)
-//    }
-//
-//    fun deleteElement (position : Int) {
-//        movies.removeAt(position)
-//        adapter.notifyItemRemoved(position)
-//    }
+
+    fun addNewElement ( position: Int ){
+        movies.add(position, Movie("New Movie ${counter++}", R.drawable.amberes))
+        adapter.notifyItemInserted(position)
+        layoutManager.scrollToPosition(position)
+    }
+
+    fun deleteElement (position : Int) {
+        movies.removeAt(position)
+        adapter.notifyItemRemoved(position)
+    }
 
 }
