@@ -10,12 +10,13 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.example.alancasas.recyclerview_cardview.Adapters.MyAdapter
 import com.example.alancasas.recyclerview_cardview.Interfaces.CustomOnItemClickListener
+import com.example.alancasas.recyclerview_cardview.Model.Movie
 import com.example.alancasas.recyclerview_cardview.R
 
 class MainActivity : AppCompatActivity() {
 
     //Creamos las variables que vamos a necesitar sin inicializarlas en un principio
-    lateinit var names : ArrayList<String>
+    lateinit var movies: ArrayList<Movie>
     lateinit var recyclerView : RecyclerView
     lateinit var layoutManager : RecyclerView.LayoutManager
     lateinit var adapter: MyAdapter
@@ -26,14 +27,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        names = getAllNames()
+        movies = getAllMoviess()
         recyclerView = findViewById(R.id.recycler_view)
         layoutManager = LinearLayoutManager(this)
 
-        adapter = MyAdapter(names, R.layout.recycler_view_item, object : CustomOnItemClickListener{
-            override fun onCustomItemClickListener(name: String, position: Int) {
-                Toast.makeText(applicationContext,"Estamos borrando a  ${name}", Toast.LENGTH_LONG).show()
-                deleteElement(position)
+        adapter = MyAdapter(movies, R.layout.recycler_view_item, object : CustomOnItemClickListener{
+            override fun onCustomItemClickListener(movie: Movie, position: Int) {
+
+                //                deleteElement(position)
             }
         })
 
@@ -54,34 +55,34 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.add_name){
-            addNewElement(0)
+//            addNewElement(0)
             return true
         }else{
             return super.onOptionsItemSelected(item)
         }
     }
 
-    fun getAllNames () : ArrayList<String>{
+    fun getAllMoviess() : ArrayList<Movie>{
         return  arrayListOf(
-                "Alan",
-                "Bibi",
-                "Mario",
-                "Elsa",
-                "Pilar",
-                "Pedro"
+                Movie("Blade Runner 2049", R.drawable.blade_runner_2049),
+                Movie("Thor: Ragnarok", R.drawable.thor_ragnarok),
+                Movie("Enganchados a la muerte", R.drawable.enganchados_a_la_muerte),
+                Movie("American Assassin", R.drawable.american_assassin),
+                Movie("Con los brazos abiertos", R.drawable.con_los_brazos_abiertos),
+                Movie("Liga de la Justicia", R.drawable.justice_league)
         )
 
     }
-
-    fun addNewElement ( position: Int ){
-        names.add(position, "New name ${++counter} ")
-        adapter.notifyItemInserted(position)
-        layoutManager.scrollToPosition(position)
-    }
-
-    fun deleteElement (position : Int) {
-        names.removeAt(position)
-        adapter.notifyItemRemoved(position)
-    }
+//
+//    fun addNewElement ( position: Int ){
+//        movies.add(position, "New name ${++counter} ")
+//        adapter.notifyItemInserted(position)
+//        layoutManager.scrollToPosition(position)
+//    }
+//
+//    fun deleteElement (position : Int) {
+//        movies.removeAt(position)
+//        adapter.notifyItemRemoved(position)
+//    }
 
 }
